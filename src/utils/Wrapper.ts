@@ -15,6 +15,7 @@ export class WrapperError extends Error {
     }
 }
 export class WrappedResult {
+    static warnOnError = false;
     static OK = true;
     static ERR = false;
     static wrapResult(fn,...args){
@@ -92,7 +93,7 @@ export class WrappedResult {
     constructor(ok, result) {
         this.#ok = ok;
         this.#result = result;
-        if(!ok) log.error('[FAIL]', result/*, (new Error).stack.substring(5)*/);
+        if(!ok && WrappedResult.warnOnError) log.error('[FAIL]', result/*, (new Error).stack.substring(5)*/);
     }
     getResult(fallback=undefined) { if(this.ok) return this.result; else return fallback; }
     getError(fallback=undefined) { if (!this.ok) return this.result; else return fallback; }

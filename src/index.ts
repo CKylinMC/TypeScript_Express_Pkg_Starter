@@ -2,7 +2,8 @@ import express, { Express } from 'express';
 import logger from './utils/Logger';
 import cors from 'cors';
 import { router as hello } from './routes/hello';
-import { env, envBool, envInt } from './utils/Commons';
+import { envInt } from './utils/Commons';
+
 const app: Express = express();
 const port = envInt('PORT', 2162);
 
